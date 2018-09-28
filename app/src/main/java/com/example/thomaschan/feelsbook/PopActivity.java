@@ -41,7 +41,6 @@ public class PopActivity extends AppCompatActivity {
         String text = intent.getStringExtra("text_ms");
         String newtext [] = text.split("\\s+");
         String num_element = Integer.toString(newtext.length);
-        Log.d("testss",num_element );
 
         if (num_element.equals("6")) {
             popmsg.setText(newtext[3]);
