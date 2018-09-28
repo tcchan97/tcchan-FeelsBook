@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     Joy Joy_C = new Joy();
 
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 'T: 'HH:mm:ss", Locale.CANADA);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T:'HH:mm:ss", Locale.CANADA);
 
 
 
@@ -97,10 +97,12 @@ public class MainActivity extends AppCompatActivity {
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
+                Object o = lv.getItemAtPosition(position);
+                String message = (String)o;
                 Intent container = new Intent(getApplicationContext(),PopActivity.class);
+                container.putExtra("text_ms",message);
                 startActivity(container);
-
             }
         });
 
