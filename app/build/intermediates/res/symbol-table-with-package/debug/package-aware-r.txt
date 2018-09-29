@@ -899,7 +899,7 @@ string Anger
 string Fear
 string Joy
 string Love
-string Sadness
+string Sad
 string Surprise
 string abc_action_bar_home_description
 string abc_action_bar_up_description

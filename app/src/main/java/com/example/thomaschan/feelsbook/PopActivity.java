@@ -14,8 +14,9 @@ import java.util.StringTokenizer;
 
 public class PopActivity extends AppCompatActivity {
 
-    TextView popmsg;
-    TextView popdate;
+    private TextView popmsg;
+    private TextView popdate;
+    //private Emotion_list classob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,10 @@ public class PopActivity extends AppCompatActivity {
 
         popmsg = (TextView) findViewById(R.id.message_msg);
         popdate = (TextView) findViewById(R.id.message_date);
-        Intent intent = getIntent();
-        String text = intent.getStringExtra("text_ms");
-        String newtext [] = text.split("\\s+");
-        String num_element = Integer.toString(newtext.length);
-
+        Intent emotion_c = getIntent();
+        //Emotion_list emotionArray = (Emotion_list) emotion_c.getSerializableExtra("emotion_ob");
+        //popmsg.setText((emotionArray.getEmotion(0).getEmotion()));
+        /*
         if (num_element.equals("6")) {
             popmsg.setText(newtext[3]);
             popdate.setText(newtext[5]);
@@ -50,7 +50,7 @@ public class PopActivity extends AppCompatActivity {
             popmsg.setText(null);
             popdate.setText(newtext[4]);
         }
-
+        */
         getWindow().setAttributes(params);
 
 

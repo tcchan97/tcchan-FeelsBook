@@ -2,12 +2,27 @@ package com.example.thomaschan.feelsbook;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Emotion {
     private String emotion;
     private String ID;
-    private String count_id;
-    private int counter = 0;
+    private Calendar R_time;
+    private String messsage;
+
+
+    public Emotion(){
+        this.R_time = Calendar.getInstance();
+        this.R_time.setTime(new Date());
+
+
+    }
 
 
 
@@ -27,20 +42,20 @@ public class Emotion {
         return this.ID;
     }
 
-    public String getCount_id(){
-        return this.count_id;
+    public void setMesssage(String messsage){
+        this.messsage = messsage;
     }
 
-    public void setCount_id(String Tag){
-        this.count_id = Tag;
+    public String getMesssage(){
+        return this.messsage;
     }
 
-    public void updateCounter(){
-        this.counter += 1;
-    }
 
-    public int getCounter(){
-        return this.counter;
+    public Date getDate(){
+        return this.R_time.getTime();
+    }
+    public void setDate(int year, int month, int day, int hour, int minute, int second){
+        this.R_time.set(year,month,day,hour,minute,second);
     }
 
 

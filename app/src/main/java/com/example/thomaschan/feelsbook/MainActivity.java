@@ -17,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,51 +25,32 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton BT1;
-    ImageButton BT2;
-    ImageButton BT3;
-    ImageButton BT4;
-    ImageButton BT5;
-    ImageButton BT6;
-    EditText message;
+    private EditText message;
 
 
-    TextView BT1C;
-    TextView BT2C;
-    TextView BT3C;
-    TextView BT4C;
-    TextView BT5C;
-    TextView BT6C;
+    private TextView BT1C;
+    private TextView BT2C;
+    private TextView BT3C;
+    private TextView BT4C;
+    private TextView BT5C;
+    private TextView BT6C;
 
-    Sad Sad_C =  new Sad();
-    Love Love_C = new Love();
-    Surprise Surprise_C = new Surprise();
-    Anger Anger_C = new Anger();
-    Fear Fear_C = new Fear();
-    Joy Joy_C = new Joy();
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T:'HH:mm:ss", Locale.CANADA);
 
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T:'HH:mm:ss", Locale.CANADA);
+    private ListView lv;
+    private ArrayList<String> arrayList;
+    private ArrayAdapter<String> adapter;
+    private Emotion_list emotionArray;
 
 
 
-    ListView lv;
-    ArrayList<String> arrayList;
-    ArrayAdapter<String> adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        BT1 = (ImageButton) findViewById(R.id.sad_bt);
-        BT2 = (ImageButton) findViewById(R.id.love_bt);
-        BT3 = (ImageButton) findViewById(R.id.surprised_bt);
-        BT4 = (ImageButton) findViewById(R.id.angry_bt);
-        BT5 = (ImageButton) findViewById(R.id.fear_bt);
-        BT6 = (ImageButton) findViewById(R.id.joy_bt);
 
         BT1C = (TextView) findViewById(R.id.sad_counter);
         BT2C = (TextView) findViewById(R.id.love_counter);
@@ -81,27 +63,22 @@ public class MainActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.emotion_list);
         message = (EditText) findViewById(R.id.comment);
 
+        emotionArray = new Emotion_list();
 
         arrayList = new ArrayList<String>();
 
+
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
         lv.setAdapter(adapter);
-
-        onBtnClick(BT1,Sad_C,BT1C);
-        onBtnClick(BT2,Love_C,BT2C);
-        onBtnClick(BT3,Surprise_C,BT3C);
-        onBtnClick(BT4,Anger_C,BT4C);
-        onBtnClick(BT5,Fear_C,BT5C);
-        onBtnClick(BT6,Joy_C,BT6C);
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
                 Object o = lv.getItemAtPosition(position);
-                String message = (String)o;
+               // String message = (String)o;
                 Intent container = new Intent(getApplicationContext(),PopActivity.class);
-                container.putExtra("text_ms",message);
+                container.putExtra("emotion_ob", emotionArray);
                 startActivity(container);
             }
         });
@@ -109,12 +86,60 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onBtnClick(ImageButton button, final Emotion emotion_t, final TextView counter_t){
+    public void addEmotion(View view){
+        Emotion emotion = new Emotion();
+        String name = view.getTag().toString();
+        emotion.setEmotion(name);
+
+        emotionArray.addEmotion(emotion);
+        //BT2C.setText(emotion.getEmotion());
+
+        if (emotion.getEmotion().equals("Sad")){
+            emotionArray.update_counter("Sad");
+            BT1C.setText(emotionArray.get_counter("Sad").toString());
+        }
+        else if (emotion.getEmotion().equals("Love")){
+            emotionArray.update_counter("Love");
+            BT2C.setText(emotionArray.get_counter("Love").toString());
+        }
+        else if(emotion.getEmotion().equals("Surprise")){
+            emotionArray.update_counter("Surprise");
+            BT3C.setText(emotionArray.get_counter("Surprise").toString());
+        }
+        else if(emotion.getEmotion().equals("Anger")){
+            emotionArray.update_counter("Anger");
+            BT4C.setText(emotionArray.get_counter("Anger").toString());
+        }
+        else if(emotion.getEmotion().equals("Fear")){
+            emotionArray.update_counter("Fear");
+            BT5C.setText(emotionArray.get_counter("Fear").toString());
+        }
+        else if(emotion.getEmotion().equals("Joy")){
+            emotionArray.update_counter("Joy");
+            BT6C.setText(emotionArray.get_counter("Joy").toString());
+        }
+
+        emotion.setMesssage(message.getText().toString());
+        String result = "Emotion: "+(emotion.getEmotion()) + "\nComment: "+ (emotion.getMesssage())
+                + "\nDate: "+(sdf.format(emotion.getDate()));
+        arrayList.add(0,result);
+        adapter.notifyDataSetChanged();
+        message.setText(null);
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+    }
+
+
+    /*
+    public void onBtnClick(View view){
+
+
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String emotion = view.getTag().toString();
+
+                /*
                 emotion_t.updateCounter();
                 int CID = emotion_t.getCounter();
                 String SCID = String.valueOf(CID);
@@ -124,10 +149,11 @@ public class MainActivity extends AppCompatActivity {
                 arrayList.add(0,result);
                 adapter.notifyDataSetChanged();
                 message.setText(null);
+
             }
         });
 
 
-    }
+    } */
 
 }

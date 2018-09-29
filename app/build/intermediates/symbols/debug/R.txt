@@ -898,7 +898,7 @@ int string Anger 0x7f0d0000
 int string Fear 0x7f0d0001
 int string Joy 0x7f0d0002
 int string Love 0x7f0d0003
-int string Sadness 0x7f0d0004
+int string Sad 0x7f0d0004
 int string Surprise 0x7f0d0005
 int string abc_action_bar_home_description 0x7f0d0006
 int string abc_action_bar_up_description 0x7f0d0007
