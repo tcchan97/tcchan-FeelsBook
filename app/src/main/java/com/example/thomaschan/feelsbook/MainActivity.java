@@ -3,27 +3,18 @@ package com.example.thomaschan.feelsbook;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.lang.reflect.Array;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private EditText message;
 
@@ -42,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> adapter;
     private Emotion_list emotionArray;
+    private Integer returnpostion;
 
 
 
@@ -51,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         BT1C = (TextView) findViewById(R.id.sad_counter);
         BT2C = (TextView) findViewById(R.id.love_counter);
@@ -66,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         emotionArray = new Emotion_list();
 
         arrayList = new ArrayList<String>();
-
+        setemotioncount();
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
         lv.setAdapter(adapter);
@@ -75,49 +68,49 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
-                Object o = lv.getItemAtPosition(position);
-               // String message = (String)o;
+                returnpostion = position;
+                //Object o = lv.getItemAtPosition(position);
                 Intent container = new Intent(getApplicationContext(),PopActivity.class);
-                container.putExtra("emotion_ob", emotionArray);
-                startActivity(container);
+                //System.out.println((emotionArray.getEmotion(position)));
+                container.putExtra("transfer_data", emotionArray.getEmotion(position));
+                startActivityForResult(container,1);
+            }
+
+
+        });
+
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                arrayList.remove(position);
+                emotionArray.update_counter(-1, (emotionArray.getEmotion(position).getEmotion()));
+                emotionArray.removeEmotion(position);
+                adapter.notifyDataSetChanged();
+                setemotioncount();
+                return true;
             }
         });
 
-
     }
+
+    public void setemotioncount(){
+        BT1C.setText(emotionArray.get_counter("Sad").toString());
+        BT2C.setText(emotionArray.get_counter("Love").toString());
+        BT3C.setText(emotionArray.get_counter("Surprise").toString());
+        BT4C.setText(emotionArray.get_counter("Anger").toString());
+        BT5C.setText(emotionArray.get_counter("Fear").toString());
+        BT6C.setText(emotionArray.get_counter("Joy").toString());
+    }
+
 
     public void addEmotion(View view){
         Emotion emotion = new Emotion();
         String name = view.getTag().toString();
         emotion.setEmotion(name);
-
         emotionArray.addEmotion(emotion);
-        //BT2C.setText(emotion.getEmotion());
 
-        if (emotion.getEmotion().equals("Sad")){
-            emotionArray.update_counter("Sad");
-            BT1C.setText(emotionArray.get_counter("Sad").toString());
-        }
-        else if (emotion.getEmotion().equals("Love")){
-            emotionArray.update_counter("Love");
-            BT2C.setText(emotionArray.get_counter("Love").toString());
-        }
-        else if(emotion.getEmotion().equals("Surprise")){
-            emotionArray.update_counter("Surprise");
-            BT3C.setText(emotionArray.get_counter("Surprise").toString());
-        }
-        else if(emotion.getEmotion().equals("Anger")){
-            emotionArray.update_counter("Anger");
-            BT4C.setText(emotionArray.get_counter("Anger").toString());
-        }
-        else if(emotion.getEmotion().equals("Fear")){
-            emotionArray.update_counter("Fear");
-            BT5C.setText(emotionArray.get_counter("Fear").toString());
-        }
-        else if(emotion.getEmotion().equals("Joy")){
-            emotionArray.update_counter("Joy");
-            BT6C.setText(emotionArray.get_counter("Joy").toString());
-        }
+        emotionArray.update_counter(1,name);
+        setemotioncount();
 
         emotion.setMesssage(message.getText().toString());
         String result = "Emotion: "+(emotion.getEmotion()) + "\nComment: "+ (emotion.getMesssage())
@@ -128,32 +121,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-    /*
-    public void onBtnClick(View view){
-
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String emotion = view.getTag().toString();
-
-                /*
-                emotion_t.updateCounter();
-                int CID = emotion_t.getCounter();
-                String SCID = String.valueOf(CID);
-                counter_t.setText(SCID);
-                String result = "Emotion: "+(emotion_t.getEmotion()) + "\nComment: "+ (message.getText().toString())
-                        + "\nDate: " + sdf.format(new Date());
-                arrayList.add(0,result);
-                adapter.notifyDataSetChanged();
-                message.setText(null);
-
+        public void onActivityResult(int requestCode, int resultCode, Intent data){
+            super.onActivityResult(requestCode,resultCode,data);
+            if (requestCode == 1){
+                if (resultCode == RESULT_OK){
+                    Emotion newEmotion = data.getParcelableExtra("return_data");
+                    String result = "Emotion: "+(newEmotion.getEmotion()) + "\nComment: "+ (newEmotion.getMesssage())
+                            + "\nDate: "+(sdf.format(newEmotion.getDate()));
+                    arrayList.set(returnpostion,result);
+                    emotionArray.updateEmotion(returnpostion,newEmotion);
+                    adapter.notifyDataSetChanged();
+                }
             }
-        });
-
-
-    } */
+        }
 
 }

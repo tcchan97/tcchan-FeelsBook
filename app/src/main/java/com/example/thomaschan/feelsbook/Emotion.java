@@ -1,16 +1,12 @@
 package com.example.thomaschan.feelsbook;
 
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import android.os.Parcel;
+import android.os.Parcelable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
-public class Emotion {
+
+public class Emotion implements Parcelable {
     private String emotion;
     private String ID;
     private Calendar R_time;
@@ -20,8 +16,6 @@ public class Emotion {
     public Emotion(){
         this.R_time = Calendar.getInstance();
         this.R_time.setTime(new Date());
-
-
     }
 
 
@@ -34,13 +28,6 @@ public class Emotion {
         this.emotion = emotion;
     }
 
-    public void setID(String Tag) {
-        this.ID = Tag;
-    }
-
-    public String getID() {
-        return this.ID;
-    }
 
     public void setMesssage(String messsage){
         this.messsage = messsage;
@@ -50,13 +37,62 @@ public class Emotion {
         return this.messsage;
     }
 
+    public Integer getDay() {
+        return this.R_time.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public Integer getMonth() {
+        return this.R_time.get(Calendar.MONTH);
+    }
+    public Integer getYear() {
+        return this.R_time.get(Calendar.YEAR);
+}
+    public Integer getHour(){
+        return this.R_time.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public Integer getMinute(){
+        return this.R_time.get(Calendar.MINUTE);
+    }
+
 
     public Date getDate(){
         return this.R_time.getTime();
     }
-    public void setDate(int year, int month, int day, int hour, int minute, int second){
-        this.R_time.set(year,month,day,hour,minute,second);
+    public void setDate(int year, int month, int day, int hour, int minute){
+        this.R_time.set(year,month,day,hour,minute);
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.emotion);
+        dest.writeString(this.ID);
+        dest.writeSerializable(this.R_time);
+        dest.writeString(this.messsage);
+    }
+
+    protected Emotion(Parcel in) {
+        this.emotion = in.readString();
+        this.ID = in.readString();
+        this.R_time = (Calendar) in.readSerializable();
+        this.messsage = in.readString();
+    }
+
+    public static final Parcelable.Creator<Emotion> CREATOR = new Parcelable.Creator<Emotion>() {
+        @Override
+        public Emotion createFromParcel(Parcel source) {
+            return new Emotion(source);
+        }
+
+        @Override
+        public Emotion[] newArray(int size) {
+            return new Emotion[size];
+        }
+    };
 }

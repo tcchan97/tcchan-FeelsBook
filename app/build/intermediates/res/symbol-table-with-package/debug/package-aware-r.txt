@@ -684,6 +684,7 @@ id META
 id Main_back
 id SHIFT
 id SYM
+id Whole_time
 id action_bar
 id action_bar_activity_content
 id action_bar_container
@@ -771,7 +772,6 @@ id list_item
 id love_bt
 id love_counter
 id message
-id message_date
 id message_msg
 id middle
 id multiply
@@ -835,6 +835,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textView2
 id textView3
+id textView4
 id textview
 id time
 id title
@@ -845,6 +846,7 @@ id topPanel
 id uniform
 id up
 id useLogo
+id whole_date
 id withText
 id wrap
 id wrap_content

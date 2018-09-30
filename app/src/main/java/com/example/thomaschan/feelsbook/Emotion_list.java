@@ -1,9 +1,13 @@
 package com.example.thomaschan.feelsbook;
 
-import java.io.Serializable;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+
 import java.util.ArrayList;
 
-public class Emotion_list implements Serializable {
+public class Emotion_list {
 
     private ArrayList<Emotion> EmotionArray;
     private Integer count_sad = 0;
@@ -15,7 +19,7 @@ public class Emotion_list implements Serializable {
 
 
     public Emotion_list(){
-       EmotionArray = new ArrayList<Emotion>();
+        EmotionArray = new ArrayList<Emotion>();
     }
 
 
@@ -23,28 +27,49 @@ public class Emotion_list implements Serializable {
         EmotionArray.add(0, emotion);
     }
 
-    public Emotion getEmotion(int index){
-        return EmotionArray.get(index);
+    public void removeEmotion(int index){
+        this.EmotionArray.remove(index);
     }
 
-    public void update_counter(String emotion){
-        if (emotion.equals("Sad")){
-            this.count_sad += 1;
+    public Emotion getEmotion(int index){
+        return this.EmotionArray.get(index);
+    }
+
+    public void updateEmotion(int index, Emotion emotion){
+        EmotionArray.set(index,emotion);
+    }
+
+    public void update_counter(int value,String emotion){
+        if (emotion.equals("Sad")) {
+            if ((this.count_sad - 1) >= -1) {
+                this.count_sad += value;
+                System.out.println(count_sad);
+            }
         }
-        else if (emotion.equals("Love")){
-            this.count_love += 1;
+        else if (emotion.equals("Love")) {
+            if ((this.count_love - 1) >= -1) {
+                this.count_love += value;
+            }
         }
-        else if (emotion.equals("Surprise")){
-            this.count_surprise += 1;
+        else if (emotion.equals("Surprise")) {
+            if ((this.count_surprise-1) >= -1) {
+                this.count_surprise += value;
+            }
         }
-        else if (emotion.equals("Anger")){
-            this.count_anger += 1;
+        else if (emotion.equals("Anger")) {
+            if ((this.count_anger-1) >= -1) {
+                this.count_anger += value;
+            }
         }
-        else if (emotion.equals("Fear")){
-            this.count_fear += 1;
+        else if (emotion.equals("Fear")) {
+            if ((this.count_fear -1) >= -1) {
+                this.count_fear += value;
+            }
         }
-        else if (emotion.equals("Joy")){
-            this.count_joy += 1;
+        else if (emotion.equals("Joy")) {
+            if ((this.count_joy-1) >= -1) {
+                this.count_joy += value;
+            }
         }
 
     }
@@ -69,6 +94,5 @@ public class Emotion_list implements Serializable {
         }
 
     }
-
 
 }
