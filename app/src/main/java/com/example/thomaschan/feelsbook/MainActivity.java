@@ -45,16 +45,16 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
 
-        BT1C = (TextView) findViewById(R.id.sad_counter);
-        BT2C = (TextView) findViewById(R.id.love_counter);
-        BT3C = (TextView) findViewById(R.id.surprise_counter);
-        BT4C = (TextView) findViewById(R.id.anger_counter);
-        BT5C = (TextView) findViewById(R.id.fear_counter);
-        BT6C = (TextView) findViewById(R.id.joy_counter);
+        BT1C = findViewById(R.id.sad_counter);
+        BT2C = findViewById(R.id.love_counter);
+        BT3C = findViewById(R.id.surprise_counter);
+        BT4C = findViewById(R.id.anger_counter);
+        BT5C = findViewById(R.id.fear_counter);
+        BT6C = findViewById(R.id.joy_counter);
 
 
-        lv = (ListView) findViewById(R.id.emotion_list);
-        message = (EditText) findViewById(R.id.comment);
+        lv = findViewById(R.id.emotion_list);
+        message = findViewById(R.id.comment);
 
         emotionArray = new Emotion_list();
 

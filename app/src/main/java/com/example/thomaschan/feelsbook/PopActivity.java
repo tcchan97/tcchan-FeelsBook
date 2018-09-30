@@ -60,9 +60,9 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
         params.x = 0;
         params.y = -20;
 
-        popTime = (TextView) findViewById(R.id.Whole_time);
-        popDate = (TextView) findViewById(R.id.whole_date);
-        popmsg = (TextView) findViewById(R.id.message_msg) ;
+        popTime = findViewById(R.id.Whole_time);
+        popDate = findViewById(R.id.whole_date);
+        popmsg = findViewById(R.id.message_msg);
 
         Emotion E_data = getIntent().getParcelableExtra("transfer_data");
         popDate.setText(sdfdate.format(E_data.getDate()));
@@ -134,7 +134,7 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
 
     public void saveResults(View view){
         Emotion E_data = getIntent().getParcelableExtra("transfer_data");
-        popmsg = (TextView) findViewById(R.id.message_msg);
+        popmsg = findViewById(R.id.message_msg);
         E_data.setMesssage(popmsg.getText().toString());
         E_data.setDate(popYear,popMonth,popDay,popHours,popMinutes);
 
