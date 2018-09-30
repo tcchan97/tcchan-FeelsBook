@@ -18,8 +18,6 @@ public class Emotion implements Parcelable {
         this.R_time.setTime(new Date());
     }
 
-
-
     public String getEmotion() {
         return this.emotion;
     }
