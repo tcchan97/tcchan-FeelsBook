@@ -1,6 +1,7 @@
 package com.example.thomaschan.feelsbook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -55,13 +61,15 @@ public class MainActivity extends AppCompatActivity{
         lv = findViewById(R.id.emotion_list);
         message = findViewById(R.id.comment);
 
-        emotionArray = new Emotion_list();
 
-        arrayList = new ArrayList<String>();
+
+        //arrayList = new ArrayList<String>();
+        loadData();
         setemotioncount();
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
         lv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,10 +94,45 @@ public class MainActivity extends AppCompatActivity{
                 emotionArray.removeEmotion(position);
                 adapter.notifyDataSetChanged();
                 setemotioncount();
+                saveData();
                 return true;
             }
         });
 
+    }
+
+    protected void onPause(Bundle savedInstanceState){
+
+    }
+
+    private void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson =  new Gson();
+        Gson gson2 = new Gson();
+        String json = gson.toJson(arrayList);
+        String json2 = gson.toJson(emotionArray);
+        editor.putString("emotion array", json2);
+        editor.putString("array list", json);
+        editor.apply();
+    }
+
+    private void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json2  = sharedPreferences.getString("emotion array", null);
+        String json = sharedPreferences.getString("array list", null);
+        Type type2 = new TypeToken<Emotion_list>(){}.getType();
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        arrayList = gson.fromJson(json, type);
+        emotionArray = gson.fromJson(json2,type2);
+
+        if (arrayList == null){
+            arrayList = new ArrayList<String>();
+        }
+        if (emotionArray == null){
+            emotionArray = new Emotion_list();
+        }
     }
 
     public void setemotioncount(){
@@ -117,6 +160,8 @@ public class MainActivity extends AppCompatActivity{
         arrayList.add(0,result);
         adapter.notifyDataSetChanged();
         message.setText(null);
+        saveData();
+
 
 
     }
@@ -130,8 +175,11 @@ public class MainActivity extends AppCompatActivity{
                     arrayList.set(returnpostion,result);
                     emotionArray.updateEmotion(returnpostion,newEmotion);
                     adapter.notifyDataSetChanged();
+                    saveData();
+
                 }
             }
         }
+
 
 }
