@@ -44,31 +44,34 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Create the popup window with set dimension
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop);
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
         getWindow().setLayout((int)(width*0.8),(int)(height*0.5));
 
-
+        // Set the location of where the window appears
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
         params.y = -20;
 
+        //Find the Id for the time, date, and message
         popTime = findViewById(R.id.Whole_time);
         popDate = findViewById(R.id.whole_date);
         popmsg = findViewById(R.id.message_msg);
 
+        //Get the data thats transfered from Intent
         Emotion E_data = getIntent().getParcelableExtra("transfer_data");
+        //Set the text for Date, Time, and message for the user to change
         popDate.setText(sdfdate.format(E_data.getDate()));
         popTime.setText(sdftime.format(E_data.getDate()));
         popmsg.setText(E_data.getMesssage());
 
+        //Gets the Data broken up into specific dates.
         popYear = E_data.getYear();
         popMonth = E_data.getMonth();
         popDay = E_data.getDay();
@@ -76,7 +79,7 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
         popMinutes = E_data.getMinute();
 
 
-
+        //date widget that opens up when the date is clicked
         mDataSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -88,7 +91,7 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
                 popDate.setText(date);
             }
         };
-
+        //Time widget that opens up when the time is clicked
         monTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int Hour, int minute) {
@@ -108,6 +111,7 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
 
 
     }
+    //Creates an Date widget for the view
     public void change_date(View view){
         Emotion E_data = getIntent().getParcelableExtra("transfer_data");
         DatePickerDialog dialog = new DatePickerDialog(
@@ -117,7 +121,7 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
-
+    //Creates an Time wiget for the view
     public void change_time(View view){
         Emotion E_data = getIntent().getParcelableExtra("transfer_data");
         TimePickerDialog dialog = new TimePickerDialog(
@@ -131,7 +135,8 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
     }
 
 
-
+    //Save the results from when the user updates a emotions history in the list. Then
+    //It will return this data back to the main activity to update the list view or emotion history.
     public void saveResults(View view){
         Emotion E_data = getIntent().getParcelableExtra("transfer_data");
         popmsg = findViewById(R.id.message_msg);
@@ -144,6 +149,8 @@ public class PopActivity extends AppCompatActivity implements Serializable, Parc
         finish();
     }
 
+    //All of this was created by the parcelable function addin inorder to make an emotion and
+    //parcelable object.
     @Override
     public int describeContents() {
         return 0;

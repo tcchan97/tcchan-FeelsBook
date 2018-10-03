@@ -17,28 +17,33 @@ public class Emotion_list {
     private Integer count_surprise = 0;
     private Integer count_love = 0;
 
-
+    //Constructor to create an new Array for Emotions
     public Emotion_list(){
         EmotionArray = new ArrayList<Emotion>();
     }
 
-
+    //Adds and emotion object to the array
     public void addEmotion(Emotion emotion){
         EmotionArray.add(0, emotion);
     }
 
+    //Removes and emotion object from the array
     public void removeEmotion(int index){
         this.EmotionArray.remove(index);
     }
 
+    //returns the emotion in the array at a specific index
     public Emotion getEmotion(int index){
         return this.EmotionArray.get(index);
     }
 
+    //It updates the emotion in the array in a specific index
     public void updateEmotion(int index, Emotion emotion){
         EmotionArray.set(index,emotion);
     }
 
+    //Updates the counter for an emotion when and value of how much to increment and emotion is set as
+    //an argument.
     public void update_counter(int value,String emotion){
         if (emotion.equals("Sad")) {
             if ((this.count_sad - 1) >= -1) {
@@ -73,6 +78,7 @@ public class Emotion_list {
         }
 
     }
+    //Returns the counter for a specific emotion
     public Integer get_counter(String emotion_r){
         if (emotion_r.equals("Sad")){
             return this.count_sad;
