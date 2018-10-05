@@ -64,6 +64,10 @@ The emotion class holds all the data about an emotion while the emotion array cl
 
 >Gaurav Arora,How to make layout with rounded corners..?, https://stackoverflow.com/questions/16161448/how-to-make-layout-with-rounded-corners
 
+>Coding in Flow,TimePickerDialog - Android Studio Tutorial,https://www.youtube.com/watch?v=QMwaNN_aM3U
+
+>Mark Allison,How to add watermark in android widget EditText?,https://stackoverflow.com/questions/5962872/how-to-add-watermark-in-android-widget-edittext
+
 
 
 
