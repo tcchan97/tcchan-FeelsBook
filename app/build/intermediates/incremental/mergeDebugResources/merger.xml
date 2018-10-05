@@ -2706,7 +2706,7 @@
     </style><style name="AppTheme.Pop">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
-    </style></file><file path="/Users/ThomasChan/Documents/Coding/ThirdYear/CMPUT301/tcchan-FeelsBook/app/src/main/res/values/strings.xml" qualifiers=""><string name="app_name">Tcchan-FeelsBook</string><string name="Love">Love</string><string name="Joy">Joy</string><string name="Surprise">Surprise</string><string name="Anger">Anger</string><string name="Fear">Fear</string><string name="option_button">Option</string><string name="message_text">Feels Book</string><string name="Sad">Sad</string></file><file path="/Users/ThomasChan/Documents/Coding/ThirdYear/CMPUT301/tcchan-FeelsBook/app/src/main/res/values/preloaded_fonts.xml" qualifiers=""><array name="preloaded_fonts" translatable="false">
+    </style></file><file path="/Users/ThomasChan/Documents/Coding/ThirdYear/CMPUT301/tcchan-FeelsBook/app/src/main/res/values/strings.xml" qualifiers=""><string name="app_name">Tcchan-FeelsBook</string><string name="Love">Love</string><string name="Joy">Joy</string><string name="Surprise">Surprise</string><string name="Anger">Anger</string><string name="Sad">Sad</string><string name="Fear">Fear</string><string name="option_button">Option</string><string name="message_text">Feels Book</string></file><file path="/Users/ThomasChan/Documents/Coding/ThirdYear/CMPUT301/tcchan-FeelsBook/app/src/main/res/values/preloaded_fonts.xml" qualifiers=""><array name="preloaded_fonts" translatable="false">
         <item>@font/adamina</item>
         <item>@font/combo</item>
         <item>@font/frijole</item>
