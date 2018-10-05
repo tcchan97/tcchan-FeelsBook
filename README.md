@@ -43,3 +43,30 @@ The emotion class holds all the data about an emotion while the emotion array cl
 >Developer Android, DatePickerDialog, https://developer.android.com/reference/android/app/DatePickerDialog
 
 >cookie_time,Cannot resolve method DateFormat.is24HourFormat in TimePickerDIalog , https://stackoverflow.com/questions/41507754/cannot-resolve-method-dateformat-is24hourformat-in-timepickerdialog
+
+>Simon Dorociak,how to add button click event in android studio, https://stackoverflow.com/questions/20156733/how-to-add-button-click-event-in-android-studio
+
+>Blackbelt,How to handle the click event in Listview in android?, https://stackoverflow.com/questions/17851687/how-to-handle-the-click-event-in-listview-in-android
+
+>rams android, Android Studio Tutorials - 44 : Custom ListView in Android, https://www.youtube.com/watch?v=FKUlw7mFXRM
+
+>CaseyB, android image button, https://stackoverflow.com/questions/2283444/android-image-button
+
+>Brian Wellington, How To Create Pop Up Window In Android, https://www.youtube.com/watch?v=Z00yq5WJ7Pc
+
+>Filip Vujovic, How To Create Pop Up Window In Android, https://www.youtube.com/watch?v=fn5OlqQuOCk
+
+> Kaustuv,Add gradient to imageview , https://stackoverflow.com/questions/23991395/add-gradient-to-imageview
+
+>phi,How can I make my custom objects Parcelable? ,https://stackoverflow.com/questions/7181526/how-can-i-make-my-custom-objects-parcelable
+
+>Somir Saikia, Lazy Ninja, How to pass ArrayList of Objects from one to another activity using Intent in android?, https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an/52176188
+
+>Gaurav Arora,How to make layout with rounded corners..?, https://stackoverflow.com/questions/16161448/how-to-make-layout-with-rounded-corners
+
+
+
+
+
+
+
